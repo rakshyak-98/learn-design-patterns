@@ -4,9 +4,14 @@ interface IBehaviAsInvoice {
     void createInvoice();
 }
 
-public class MainInvoice {
+public abstract class MainInvoice {
     IBehaviAsInvoice behavior;
-    void createInvoice(){
+
+    public void createInvoice() {
         behavior.createInvoice();
+    }
+
+    public void setBehavior(IBehaviAsInvoice ib){
+        behavior = ib;
     }
 }
