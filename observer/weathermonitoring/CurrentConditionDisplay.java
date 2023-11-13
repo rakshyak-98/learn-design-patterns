@@ -1,13 +1,13 @@
-package observer.weatermonitoring;
+package observer.weathermonitoring;
 
-public class StatisticsDisplay implements Observer, DisplayElement {
+public class CurrentConditionDisplay implements Observer, DisplayElement {
     private float temperature;
     private float humidity;
-    private Subject weatherData;
+    private Subject weatherData; // in future may want to un-register, handy to already have a reference
 
-    public StatisticsDisplay(Subject weatherData){
+    public CurrentConditionDisplay(Subject weatherData) {
         this.weatherData = weatherData;
-        weatherData.removeObserver(this);
+        weatherData.registerObserver(this);
     }
 
     @Override
@@ -21,5 +21,4 @@ public class StatisticsDisplay implements Observer, DisplayElement {
         this.humidity = humidity;
         display();
     }
-
 }

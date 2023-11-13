@@ -1,31 +1,32 @@
-package observer.weatermonitoring;
+package observer.weathermonitoring;
 
 import java.util.ArrayList;
 
 interface Subject {
     public void registerObserver(Observer o);
+
     public void removeObserver(Observer o);
+
     public void notifyObserver();
 }
 
-interface DisplayElement{
+interface DisplayElement {
     public void display();
 }
 
-interface Observer{
+interface Observer {
     public void update(float temperature, float humidity, float pressure);
 }
 
-public class WeatherData implements Subject{
+public class WeatherData implements Subject {
     private ArrayList<Observer> observers;
     private float temperature;
     private float humidity;
     private float pressure;
 
-    public WeatherData(){
+    public WeatherData() {
         observers = new ArrayList<>();
     }
-
 
     public float getTemperature() {
         return 0.0f;
@@ -42,12 +43,14 @@ public class WeatherData implements Subject{
     public void measurementsChanged() {
         notifyObserver();
     }
-    public void setMeasurements(float temperature, float humidity, float pressure){
+
+    public void setMeasurements(float temperature, float humidity, float pressure) {
         this.temperature = temperature;
         this.humidity = humidity;
         this.pressure = pressure;
         measurementsChanged();
     }
+
     @Override
     public void registerObserver(Observer o) {
         observers.add(o);
@@ -56,15 +59,15 @@ public class WeatherData implements Subject{
     @Override
     public void removeObserver(Observer o) {
         int i = observers.indexOf(o);
-        if( i >= 0) {
+        if (i >= 0) {
             observers.remove(i);
         }
     }
 
     @Override
     public void notifyObserver() {
-        for(int i = 0; i < observers.size(); i++){
-            Observer observer = (Observer)observers.get(i);
+        for (int i = 0; i < observers.size(); i++) {
+            Observer observer = (Observer) observers.get(i);
             observer.update(this.temperature, this.humidity, this.pressure);
         }
     }
