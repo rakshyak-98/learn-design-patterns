@@ -1,4 +1,4 @@
-package decorator;
+package decorator.beveragesDecorator;
 
 /* 
  * Beverage is a abstract calls, subclassed by all beverages offered

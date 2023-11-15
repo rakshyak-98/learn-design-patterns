@@ -1,4 +1,4 @@
-package decorator;
+package decorator.beveragesDecorator;
 
 public class Whip extends CondimentDecorator{
     Beverage beverage;
