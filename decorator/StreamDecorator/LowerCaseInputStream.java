@@ -1,25 +1,25 @@
-package decorator.StreamDecorator;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+// package decorator.StreamDecorator;
+// import java.io.File;
+// import java.io.FileInputStream;
+// import java.io.IOException;
+// import java.io.InputStream;
 
-public class LowerCaseInputStream extends FileInputStream{
-    public LowerCaseInputStream(InputStream in) {
-        super(in);
-    }
+// public class LowerCaseInputStream extends FileInputStream{
+//     public LowerCaseInputStream(InputStream in) {
+//         // super(in);
+//     }
 
-    public int read() throws IOException{
-        int c = super.read();
-        return (c == -1 ? c : Character.toLowerCase(((char)c)));
-    }
+//     public int read() throws IOException{
+//         int c = super.read();
+//         return (c == -1 ? c : Character.toLowerCase(((char)c)));
+//     }
 
-    public int read(byte[] b, int offset, int len) throws IOException{
-        int result = super.read(b, offset, len);
-        for(int i = offset; i < offset+result; i++){
-            b[i] = (byte)Character.toLowerCase((char)b[i]);
-        }
-        return result;
-    }
+//     public int read(byte[] b, int offset, int len) throws IOException{
+//         int result = super.read(b, offset, len);
+//         for(int i = offset; i < offset+result; i++){
+//             b[i] = (byte)Character.toLowerCase((char)b[i]);
+//         }
+//         return result;
+//     }
     
-}
+// }
