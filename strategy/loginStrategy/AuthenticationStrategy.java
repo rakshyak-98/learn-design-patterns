@@ -39,7 +39,7 @@ class TwoFactorAuthentication implements AuthenticationStrategy{
 
 }
 
-class AuthenticationContext {
+abstract class AuthenticationContext {
     private AuthenticationStrategy authenticationStrategy;
 
     public void setAuthenticationStrategy(AuthenticationStrategy authenticationStrategy){

@@ -4,7 +4,7 @@ interface WeaponBehavior{
     void useWeapon();
 }
 
-public class Character {
+public abstract  class Character {
     WeaponBehavior weapon;  
 
     public void fight(){
