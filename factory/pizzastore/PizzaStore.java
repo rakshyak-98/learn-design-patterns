@@ -44,6 +44,9 @@ abstract class Pizza {
         for(String i : toppings) System.out.println(i);
     }
 
+    /* 
+     * do not make it public.
+     */
     void bake(){
         System.out.println("Bake for 25 minutes at 350");
     }
@@ -84,11 +87,24 @@ class NYStyleCheesePizza extends Pizza{
         toppings.add("Grated Reggiano Cheese");
     }
 }
-class NYStyleClamPizza extends Pizza{ }
+class NYStyleClamPizza extends Pizza{
+    public NYStyleClamPizza(){
+        name = "NY Style Clam pizza";
+        sauce = "Marinara Sauce extra clam";
+        toppings.add("Grated Reggiano cheese");
+        toppings.add("Tomato");
+        toppings.add("Onion");
+    }
+    void bake(){
+        System.out.println("Bake for 45 minutes at 350");
+    }
+ }
 
 class Main{
     public static void main(String[] args) {
         PizzaStore nyPizzaStore = new NyPizzaStore();
         nyPizzaStore.orderPizza("cheese");
+        System.out.println();
+        nyPizzaStore.orderPizza("clam");
     }
 }
