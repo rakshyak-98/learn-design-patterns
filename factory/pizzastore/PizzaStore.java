@@ -31,18 +31,15 @@ interface IPizza{
 }
 
 abstract class Pizza {
-    String name;
-    String dough;
-    String sauce;
-    ArrayList<String> toppings = new ArrayList<>();
+    private String name;
+    Dough dough;
+    Sauce sauce;
+    Veggies[] veggies;
+    Cheese cheese;
+    Pepperoni pepperoni;
+    Clams clam;
 
-    void prepare(){
-        System.out.println("Preparing " + name);
-        System.out.println("Tossing dough...");
-        System.out.println("Adding sauce...");
-        System.out.println("Adding toppings: ");
-        for(String i : toppings) System.out.println(i);
-    }
+    abstract void prepare();
 
     /* 
      * do not make it public.
@@ -59,46 +56,120 @@ abstract class Pizza {
         System.out.println("Place pizza in official PizzaStore box");
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+
     public String getName(){
         return name;
+    }
+
+    public String toString(){
+        return this.name.concat(" From New york Pizza store.");
     }
     
 }
 
-
 class NyPizzaStore extends PizzaStore {
 
     @Override
-    protected Pizza createPizza(String type) {
-        if (type.equals("cheese")) {
-            return new NYStyleCheesePizza();
-        } else if (type.equals("clam")) {
-            return new NYStyleClamPizza();
-        } else return null;
+    protected Pizza createPizza(String item) {
+        Pizza pizza = null;
+        PizzaIngredientFactory ingredientFactory = new NyPizzaIngredientFactory();
+        if(item.equals("cheese")){
+            pizza = new CheesePizza(ingredientFactory);
+            pizza.setName("New York Style cheese pizza");
+        }else if (item.equals("veggie")){
+            pizza = new VeggiePizza(ingredientFactory);
+            pizza.setName("New York Style Veggie pizza");
+        }else if (item.equals("clam")){
+            pizza = new ClamPizza(ingredientFactory);
+            pizza.setName("New York Style Clam pizza");
+        }else if (item.equals("pepperoni")){
+            pizza = new PepperoniPizza(ingredientFactory);
+            pizza.setName("New York Style Pepperoni pizza");
+        }
+        return pizza;
+    }
+}
+
+class CheesePizza extends Pizza{ 
+    PizzaIngredientFactory ingredientFactory;
+    public CheesePizza(PizzaIngredientFactory ingredientFactory){
+        this.ingredientFactory = ingredientFactory;
+    }
+
+    @Override
+    void prepare() {
+        System.out.println("Preparing " + this.getName());
+        dough = ingredientFactory.createDough();
+        sauce = ingredientFactory.createSauce();
+        cheese = ingredientFactory.createCheese();
+    }
+}
+
+class PepperoniPizza extends Pizza{
+    PizzaIngredientFactory ingredientFactory;
+
+    public PepperoniPizza(PizzaIngredientFactory ingredientFactory){
+        this.ingredientFactory = ingredientFactory;
+    }
+
+    @Override
+    void prepare() {
+        System.out.println("Preparing " + getName());
+        dough = ingredientFactory.createDough();
+        sauce = ingredientFactory.createSauce();
+        pepperoni = ingredientFactory.createPepperoni();
+        cheese = ingredientFactory.createCheese();
     }
 
 }
 
-class NYStyleCheesePizza extends Pizza{ 
-    public NYStyleCheesePizza(){
-        name = "NY Style sauce and Cheese Pizza";
-        dough = "Thin Crust Dough";
-        sauce = "Marinara Sauce";
-        toppings.add("Grated Reggiano Cheese");
+class VeggiePizza extends Pizza{
+    PizzaIngredientFactory ingredientFactory;
+
+    public VeggiePizza(PizzaIngredientFactory ingredientFactory){
+        this.ingredientFactory = ingredientFactory;
     }
+
+    @Override
+    void prepare() {
+        System.out.println("Preparing " + getName());
+        dough = ingredientFactory.createDough();
+        sauce = ingredientFactory.createSauce();
+        cheese = ingredientFactory.createCheese();
+        veggies = ingredientFactory.createVeggies();
+    }
+
 }
-class NYStyleClamPizza extends Pizza{
-    public NYStyleClamPizza(){
-        name = "NY Style Clam pizza";
-        sauce = "Marinara Sauce extra clam";
-        toppings.add("Grated Reggiano cheese");
-        toppings.add("Tomato");
-        toppings.add("Onion");
+
+class ClamPizza extends Pizza{
+    PizzaIngredientFactory ingredientFactory;
+
+    public ClamPizza(PizzaIngredientFactory ingredientFactory){
+        this.ingredientFactory = ingredientFactory;
     }
-    void bake(){
-        System.out.println("Bake for 45 minutes at 350");
+
+    @Override
+    void prepare() {
+        System.out.println("Preparing " + this.getName());
+        dough = ingredientFactory.createDough();
+        sauce = ingredientFactory.createSauce();
+        cheese = ingredientFactory.createCheese();
+        clam = ingredientFactory.createClam();
     }
+
  }
+
+interface PizzaIngredientFactory{
+    public Dough createDough();
+    public Sauce createSauce();
+    public Cheese createCheese();
+    public Veggies[] createVeggies();
+    public Pepperoni createPepperoni();
+    public Clams createClam();
+}
 
 class Main{
     public static void main(String[] args) {
